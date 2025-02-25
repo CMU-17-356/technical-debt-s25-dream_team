@@ -60,6 +60,7 @@ export default function QueryProcessor(query: string): string {
     return result.toString();
   }
 
+  // Handle largest number queries
   if (query.toLowerCase().includes("largest")) {
     const numbers = query.match(/\d+/g);
     if (numbers) {
@@ -68,13 +69,29 @@ export default function QueryProcessor(query: string): string {
     } 
   }
 
+  // Handle numbers that are both a square and a cube (sixth power)
   if (query.toLowerCase().includes("a square and a cube")) {
-    // Extract numbers from the query (handle potential null)
     const matches = query.match(/\d+/g);
     const numbers = matches ? matches.map(Number) : [];
-    // Check which numbers are perfect sixth powers
     const sixthPowers = numbers.filter(num => Math.round(Math.pow(num, 1 / 6)) ** 6 === num);
     return String(sixthPowers);
+  }
+
+  // Handle prime number queries
+  if (query.toLowerCase().includes("prime")) {
+    const matches = query.match(/\d+/g);
+    const numbers = matches ? matches.map(Number) : [];
+
+    function isPrime(n: number): boolean {
+      if (n < 2) return false;
+      for (let i = 2; i * i <= n; i++) {
+        if (n % i === 0) return false;
+      }
+      return true;
+    }
+
+    const primes = numbers.filter(isPrime);
+    return primes.length > 0 ? primes.join(", ") : "No prime numbers found";
   }
 
   // Default return for unrecognized queries
