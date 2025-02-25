@@ -23,6 +23,14 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  const exponentiationMatch = query.match(/what is (\d+)\s*to the power of\s*(\d+)/i);
+  if (exponentiationMatch) {
+    const base = parseFloat(exponentiationMatch[1]);
+    const exponent = parseFloat(exponentiationMatch[2]);
+    const result = Math.pow(base, exponent);
+    return result.toString();
+  }
+
   // Handle arithmetic operations (plus, minus, multiplied by, divided by)
   const operatorMatch = query.match(/what is (\d+)\s*(plus|minus|multiplied by|divided by)\s*(\d+)/i);
   if (operatorMatch) {
