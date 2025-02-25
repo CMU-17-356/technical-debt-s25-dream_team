@@ -64,7 +64,7 @@ export default function QueryProcessor(query: string): string {
     });
 
     if (result.length > 0) {
-      return `The numbers that are both a square and a cube are: ${result.join(', ')}`;
+      return `${result.join(', ')}`;
     } else {
       return "None of the numbers are both a square and a cube.";
     }
