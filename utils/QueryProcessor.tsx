@@ -14,11 +14,21 @@ export default function QueryProcessor(query: string): string {
   }
 
   // Handle arithmetic queries
-  const arithmeticMatch = query.match(/what is (\d+)\s*(plus|minus|multiplied by|divided by)\s*(\d+)/i);
+  const arithmeticMatch = query.match(/what is (\d+)(\s*plus\s*\d+)+/i);
   if (arithmeticMatch) {
-    const num1 = parseFloat(arithmeticMatch[1]);
-    const operator = arithmeticMatch[2].toLowerCase();
-    const num2 = parseFloat(arithmeticMatch[3]);
+    const numbers = query.match(/\d+/g);
+    if (numbers) {
+      const sum = numbers.reduce((acc, num) => acc + parseFloat(num), 0);
+      return sum.toString();
+    }
+  }
+
+  // Handle arithmetic operations (plus, minus, multiplied by, divided by)
+  const operatorMatch = query.match(/what is (\d+)\s*(plus|minus|multiplied by|divided by)\s*(\d+)/i);
+  if (operatorMatch) {
+    const num1 = parseFloat(operatorMatch[1]);
+    const operator = operatorMatch[2].toLowerCase();
+    const num2 = parseFloat(operatorMatch[3]);
 
     let result: number;
 
@@ -62,4 +72,3 @@ export default function QueryProcessor(query: string): string {
   // Default return for unrecognized queries
   return "";
 }
-
