@@ -29,7 +29,7 @@ export default function QueryProcessor(query: string): string {
       case 'minus':
         result = num1 - num2;
         break;
-      case 'times':
+      case 'multiplied by':
         result = num1 * num2;
         break;
       case 'divided by':
