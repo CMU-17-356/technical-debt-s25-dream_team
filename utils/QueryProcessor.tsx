@@ -42,6 +42,14 @@ export default function QueryProcessor(query: string): string {
     return result.toString();
   }
 
+  if (query.toLowerCase().includes("largest")) {
+    const numbers = query.match(/\d+/g);
+    if (numbers) {
+        const largestNumber = Math.max(...numbers.map(Number));
+        return `${largestNumber}`;
+    } 
+  }
+
   // Default return for unrecognized queries
   return "";
 }
