@@ -50,6 +50,26 @@ export default function QueryProcessor(query: string): string {
     } 
   }
 
+  if (query.toLowerCase().includes("which of the following numbers is both a square and a cube")) {
+    // Extract numbers from the query using regex
+    const numbers = query.match(/\b\d+\b/g)?.map(Number) || [];
+    const result: number[] = [];
+
+    numbers.forEach(num => {
+      // Check if the number is both a perfect square and a perfect cube (i.e., a perfect sixth power)
+      const root = Math.round(Math.pow(num, 1/6));
+      if (Math.pow(root, 6) === num) {
+        result.push(num);
+      }
+    });
+
+    if (result.length > 0) {
+      return `The numbers that are both a square and a cube are: ${result.join(', ')}`;
+    } else {
+      return "None of the numbers are both a square and a cube.";
+    }
+  }
+
   // Default return for unrecognized queries
   return "";
 }
