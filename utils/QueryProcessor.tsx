@@ -14,7 +14,7 @@ export default function QueryProcessor(query: string): string {
   }
 
   // Handle arithmetic queries
-  const arithmeticMatch = query.match(/what is (\d+)\s*(plus|minus|times|divided by)\s*(\d+)/i);
+  const arithmeticMatch = query.match(/what is (\d+)\s*(plus|minus|multiplied by|divided by)\s*(\d+)/i);
   if (arithmeticMatch) {
     const num1 = parseFloat(arithmeticMatch[1]);
     const operator = arithmeticMatch[2].toLowerCase();
