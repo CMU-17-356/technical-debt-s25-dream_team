@@ -1,4 +1,5 @@
 export default function QueryProcessor(query: string): string {
+  // Handle Shakespeare-related queries
   if (query.toLowerCase().includes("shakespeare")) {
     return (
       "William Shakespeare (26 April 1564 - 23 April 1616) was an " +
@@ -7,9 +8,41 @@ export default function QueryProcessor(query: string): string {
     );
   }
 
+  // Handle name-related queries
   if (query.toLowerCase().includes("name")) {
     return "dreamteam";
   }
 
+  // Handle arithmetic queries
+  const arithmeticMatch = query.match(/what is (\d+)\s*(plus|minus|times|divided by)\s*(\d+)/i);
+  if (arithmeticMatch) {
+    const num1 = parseFloat(arithmeticMatch[1]);
+    const operator = arithmeticMatch[2].toLowerCase();
+    const num2 = parseFloat(arithmeticMatch[3]);
+
+    let result: number;
+
+    switch (operator) {
+      case 'plus':
+        result = num1 + num2;
+        break;
+      case 'minus':
+        result = num1 - num2;
+        break;
+      case 'times':
+        result = num1 * num2;
+        break;
+      case 'divided by':
+        result = num1 / num2;
+        break;
+      default:
+        return "Invalid operation";
+    }
+
+    return result.toString();
+  }
+
+  // Default return for unrecognized queries
   return "";
 }
+
